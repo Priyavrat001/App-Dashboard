@@ -1,8 +1,21 @@
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
-import { OrderItem } from "../../../models/types";
-import { server } from "../../../redux/store";
+import {useState} from "react";
+// import { OrderItem } from "../../../models/types";
+// import { server } from "../../../redux/store";
+
+type CartItem = {
+  productId: string;
+  photo: string;
+  name: string;
+  price: number;
+  quantity: number;
+  stock: number;
+
+}
+
+type OrderItem = Omit<CartItem, "stock"> & { _id: string };
 
 const img =
   "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
@@ -11,9 +24,10 @@ const orderItems: OrderItem[] = [
   {
     name: "Puma Shoes",
     photo: img,
-    id: "asdsaasdas",
+    _id: "asdsaasdas",
     quantity: 4,
     price: 2000,
+    productId: "product123"
   },
 ];
 
@@ -50,11 +64,13 @@ const TransactionManagement = () => {
   } = order;
 
   const updateHandler = (): void => {
-    setOrder((prev) => ({
+    setOrder((prev:any) => ({
       ...prev,
       status: "Shipped",
     }));
   };
+
+  const deleteHandler = ()=>{}
 
   return (
     <div className="admin-container">
@@ -71,7 +87,7 @@ const TransactionManagement = () => {
             <ProductCard
               key={i._id}
               name={i.name}
-              photo={`${server}/${i.photo}`}
+              photo={`enter your sever/${i.photo}`}
               productId={i.productId}
               _id={i._id}
               quantity={i.quantity}

@@ -14,6 +14,8 @@ const NewProduct = () => {
 
     const reader: FileReader = new FileReader();
 
+    photo
+
     if (file) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
